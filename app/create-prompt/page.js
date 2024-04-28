@@ -10,6 +10,7 @@ const CreatePost = () => {
 
     const router = useRouter()
     const { data : session } = useSession()
+    console.log(session)
     const [submitting, setSubmitting] = useState(false)
     const [post , setPost] = useState({
         tags : '',
@@ -17,9 +18,10 @@ const CreatePost = () => {
     })
 
     const handleSubmit  = async (e) => {
+      setSubmitting(true)
       e.preventDefault()
       try{
-        let prompt = await axios.post('/api/prompt' , { ...post , userID : session.user._id })
+        let prompt = await axios.post('/api/prompt' , { ...post , userID : session.user.id })
         toast.success('Prompt created')
         router.push("/")
       }
@@ -27,6 +29,7 @@ const CreatePost = () => {
         toast.success('An error occurred')
         console.log(err)
       }
+      setSubmitting(false)
     }
 
 

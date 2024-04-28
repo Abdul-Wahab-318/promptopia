@@ -12,6 +12,7 @@ const Form = ({ submitting , post , setPost , handleSubmit , type }) => {
                     <span className='text-gray-700 font-semibold'>Your AI prompt</span>
                 </label>
                 <textarea name="prompt"
+                required
                 placeholder='Write your prompt here...'
                 value={post.prompt} 
                 onChange={ e => setPost({ ...post , prompt: e.target.value }) }
@@ -25,6 +26,7 @@ const Form = ({ submitting , post , setPost , handleSubmit , type }) => {
                 </label>
                 <input name="tags"
                 placeholder='Write prompt tags here'
+                required
                 value={post.tags} 
                 onChange={ e => setPost({ ...post , tags : e.target.value }) }
                 id="tags" 

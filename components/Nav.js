@@ -20,7 +20,7 @@ const Nav = () => {
     setUpProviders()
 
   },[])
-  console.log(session)
+  
   return (
     <nav className='flex-between sm:mb-16 py-5 w-full container mx-auto'>
         <Link href="/" className='flex gap-2 flex-center'>
