@@ -4,13 +4,17 @@ import connectToDB from "@utils/db"
 export const GET = async (req, res) => {
     try{
         await connectToDB()
-        console.log("params + :" , req.query)
-        let user = await User.findById(req.params.id)
+        
+        const url = new URL(req.url)
+        const searchParams = new URLSearchParams(url.searchParams)
+        const id = searchParams.get('id')
 
+        let user = await User.findById(id)
+        console.log("user : " + user ) 
         if(!user)
             return new Response(JSON.stringify({ data : null , message : 'user not found' }) , {status: 404})
 
-        return new Response(JSON.stringify("success") , {status: 200 })
+        return new Response( JSON.stringify({ data : user , message : 'user found' }) , {status: 200 })
     }
     catch(err)
     {
