@@ -10,7 +10,7 @@ export const GET = async (req, res) => {
         const id = searchParams.get('id')
 
         let user = await User.findById(id)
-        console.log("user : " + user ) 
+        
         if(!user)
             return new Response(JSON.stringify({ data : null , message : 'user not found' }) , {status: 404})
 
