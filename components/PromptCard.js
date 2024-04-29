@@ -3,13 +3,14 @@ import React , { useState } from 'react'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import { usePathname , useRouter } from 'next/navigation'
-
 const PromptCard = ({ post , handleTagClick , handleEdit , handleDelete }) => {
 
     const router = useRouter()
+    const { data : session} = useSession()
+    const pathname = usePathname() 
+
     const [copied , setCopied] = useState(false)
     const handleCopy = () => {
-
         setCopied(true)
         navigator.clipboard.writeText(post.prompt)
 
@@ -35,7 +36,17 @@ const PromptCard = ({ post , handleTagClick , handleEdit , handleDelete }) => {
         <p className="mt-4">
             {post.prompt}
         </p>
-        <p className='mt-4' onClick={() => handleTagClick && handleTagClick(post.tags) }>{post.tags.split(",").map( tag => " #" + tag.trim())}</p>
+        <p className='mt-2  blue_gradient' onClick={() => handleTagClick && handleTagClick(post.tags) }>{post.tags.split(",").map( tag => " #" + tag.trim())}</p>
+
+        {
+            session?.user?.id === post.creator._id && pathname.includes("/profile") ? 
+            <div className='flex justify-center gap-5 mt-8'>
+                <span className="cursor-pointer green_gradient p-2" onClick={() => handleEdit && handleEdit(post)}>Edit</span>
+                <span className="cursor-pointer orange_gradient p-2" onClick={() => handleDelete && handleDelete(post)}>Delete</span>
+            </div>
+            :
+            <></>
+        }
     </div>
   )
 }

@@ -1,6 +1,7 @@
 //import axios from "axios"
 
 import PromptCard from "@components/PromptCard"
+import PromptCardList from "@components/PromptCardList"
 import Image from "next/image"
 
 const Profile = async (props) => {
@@ -8,8 +9,6 @@ const Profile = async (props) => {
   const id = props.params.id
   const { data : profile } = await getProfile(id)
   const { data : prompts } = await getUserPrompts(id)
-
-  console.log("data :" , prompts )
 
   return (
     <section className="container w-max-lg">
@@ -30,16 +29,18 @@ const Profile = async (props) => {
   )
 }
 
-const PromptCardList = ({ data }) => {
+// const PromptCardList = ({ data }) => {
 
-  return (
-      <section className="prompt-card-list mt-5 sm:mt-14 prompt_layout">
-          {
-              data.map( (post, ind) => <PromptCard post={post} key={ind} />)
-          }
-      </section>
-  )
-}
+//   const [ state , useState ] = useState([])
+
+//   return (
+//       <section className="prompt-card-list mt-5 sm:mt-14 prompt_layout">
+//           {
+//               data.map( (post, ind) => <PromptCard post={post} key={ind} />)
+//           }
+//       </section>
+//   )
+// }
 
 async function getProfile(id) {
   try{
